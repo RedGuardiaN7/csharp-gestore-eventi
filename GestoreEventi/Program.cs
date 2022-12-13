@@ -11,23 +11,12 @@ using static GestoreEventi.EventSchedule;
 
 try
 {
-    EventSchedule WinterFestival = new EventSchedule ("Winter Festival 2022");
-    Event Event_1 = new Event("SnowFight", "14/12/2022", 200);
-    Event Event_2 = new Event("Vin Brulè Party", "14/12/2022", 200);
-    Event Event_3 = new Event("Secret Santa", "20/12/2022", 200);
+    EventSchedule UserSchedule = new EventSchedule();
 
-    WinterFestival.Add (Event_1);
-    WinterFestival.Add (Event_2);
-    WinterFestival.Add(Event_3);
-
-    WinterFestival.DateCheck("14/12/2022");
-
-    WinterFestival.Print();
-
-
-
-
-
+    UserSchedule.EventsCount();
+    UserSchedule.Print();
+    UserSchedule.DateCheck();
+    UserSchedule.CancelList();
 }
 catch (Exception e)
 {

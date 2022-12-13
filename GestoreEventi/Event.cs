@@ -60,6 +60,7 @@ namespace GestoreEventi
 
         //------------ Costruttori ------------ //
 
+        //Questo costruttore viene utilizzato per creare un evento generico
         public Event()
         {
             //Sanificazione dell'input dell'utente
@@ -135,6 +136,66 @@ namespace GestoreEventi
                     BookedSeatsSanification = true;
                 }
             } while (BookedSeatsSanification == false);
+        }
+
+        //Questo costruttore invece, viene utilizzato nella creazione di un nuovo programma di eventi, ergo il "i", che servirà a contare gli eventi
+        public Event(int i)
+        {
+            //Sanificazione dell'input dell'utente
+
+            bool NameSanification = false;
+            Console.Write("Inserisca il nome del " + i + "º evento: ");
+            do
+            {
+                string? InputTitle = Console.ReadLine();
+
+                if (InputTitle == "")
+                {
+                    Console.Write("Il titolo da lei inserito è vuoto, per favore inserisca un titolo valido: ");
+                }
+                else
+                {
+                    this.Title = InputTitle;
+                    NameSanification = true;
+                }
+            } while (NameSanification == false);
+
+            bool DateSanification = false;
+            Console.Write("Inserisca la data dell'evento (gg/mm/yyyy): ");
+            do
+            {
+                string? InputDate = Console.ReadLine();
+                if (DateTime.TryParse(InputDate, out DateTime result) == false)
+                {
+                    Console.Write("La data da lei inserita è invalida, inserisca la data nel formato (gg/dd/yyyy): ");
+                }
+                else
+                {
+                    this.Date = DateTime.Parse(InputDate);
+                    DateSanification = true;
+                }
+            } while (DateSanification == false);
+
+            bool MaxCapacitySanification = false;
+            int InputMaxCapacity;
+            Console.Write("Inserisca il numero di posti totali: ");
+
+            do
+            {
+                string? StringMaxCapacity = Console.ReadLine();
+
+                if ((int.TryParse(StringMaxCapacity, out InputMaxCapacity) == false) || InputMaxCapacity <= 0)
+                {
+                    Console.Write("Il numero da lei inserito non è valido, per favore reinserisca il numero massimo di posti: ");
+                }
+                else
+                {
+                    this.MaxCapacity = InputMaxCapacity;
+                    MaxCapacitySanification = true;
+                }
+
+            } while (MaxCapacitySanification == false);
+            Console.WriteLine();
         }
 
         public Event(string Title, string Date, int MaxCapacity)

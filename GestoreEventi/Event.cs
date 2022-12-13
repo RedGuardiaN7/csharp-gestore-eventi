@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,7 +57,84 @@ namespace GestoreEventi
 
         public int BookedSeats { get; private set; }
 
-        //------------ Costruttore ------------ //
+        //------------ Costruttori ------------ //
+
+        public Event()
+        {
+            //Sanificazione dell'input dell'utente
+
+            bool NameSanification = false;
+            Console.Write("Inserisca il nome dell'evento: ");
+            do
+            {
+                string? InputTitle = Console.ReadLine();
+
+                if (InputTitle == "")
+                {
+                    Console.Write("Il titolo da lei inserito è vuoto, per favore inserisca un titolo valido: ");
+                } else
+                {
+                    this.Title = InputTitle;
+                    NameSanification = true;
+                }
+            } while (NameSanification == false);
+
+            bool DateSanification = false;
+            Console.Write("Inserisca la data dell'evento (gg/mm/yyyy): ");
+            do
+            {
+                string? InputDate = Console.ReadLine();
+                if (DateTime.TryParse(InputDate, out DateTime result) == false) 
+                {
+                    Console.Write("La data da lei inserita è invalida, inserisca la data nel formato (gg/dd/yyyy): ");
+                }
+                else
+                {
+                    this.Date = DateTime.Parse(InputDate);
+                    DateSanification = true;
+                }
+            } while (DateSanification == false);
+            
+            bool MaxCapacitySanification = false;
+            int InputMaxCapacity;
+            Console.Write("Inserisca il numero di posti totali: ");
+
+            do
+            {
+                string? StringMaxCapacity = Console.ReadLine();
+
+                if ((int.TryParse(StringMaxCapacity, out InputMaxCapacity) == false) || InputMaxCapacity <= 0)
+                {
+                    Console.Write("Il numero da lei inserito non è valido, per favore reinserisca il numero massimo di posti: ");
+                }
+                else
+                {
+                    this.MaxCapacity = InputMaxCapacity;
+                    MaxCapacitySanification = true;
+                }
+
+            } while (MaxCapacitySanification == false);
+
+            bool BookedSeatsSanification = false;
+            int InputBookedSeats;
+            Console.Write("Quanti posti desidera prenotare? ");
+
+            do
+            {
+                string? StringBookedSeats = Console.ReadLine();
+
+                if ((int.TryParse(StringBookedSeats, out InputBookedSeats) == false) || InputBookedSeats > this.MaxCapacity || InputBookedSeats < 0) 
+                {
+                    Console.Write("Il numero dei posti che lei desidera prenotare è invalido, per favore reinserisca il numero di post da prenotare: ");
+                }
+                else
+                {
+                    Console.WriteLine();
+                    this.BookedSeats += InputBookedSeats;
+                    BookedSeatsSanification|= true;
+                }
+            } while (BookedSeatsSanification == false);
+        }
 
         public Event(string Title, string Date, int MaxCapacity)
         {
@@ -112,6 +190,15 @@ namespace GestoreEventi
         public override string ToString()
         {
             return (this.Date.ToString("d") + " - " + this.Title);
+        }
+
+        //Metodo che stampa a video il numero di posti prenotati e quelli disponibili
+
+        public void SeatsPrint()
+        {
+            Console.WriteLine("Numero di posti prenotati: " + this.BookedSeats);
+            Console.WriteLine("Numero di posti disponibili: " + (this.MaxCapacity - this.BookedSeats));
+            Console.WriteLine();
         }
 
         //---------- Definizioni delle eccezioni ----------//

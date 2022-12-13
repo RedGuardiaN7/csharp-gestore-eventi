@@ -10,14 +10,11 @@ using GestoreEventi;
 
 try
 {
-    Event Sagra = new Event("Sagra della polpetta", "14/12/2022", 10);
+    Event Event_1 = new Event();
 
-    Console.WriteLine(Sagra.ToString());
+    Console.WriteLine(Event_1.ToString());
 
-    Sagra.BookSeats(2);
-    Sagra.CancelSeats(3);
-
-
+    Event_1.BookSeats(2);
 
 
 

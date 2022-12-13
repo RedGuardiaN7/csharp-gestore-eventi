@@ -12,11 +12,14 @@ using static GestoreEventi.EventSchedule;
 try
 {
     EventSchedule UserSchedule = new EventSchedule();
-
+    
+    UserSchedule.DateCheck();
+    //UserSchedule.CancelList();
+    
+    Conference UserConference = new Conference();
+    UserSchedule.Add(UserConference);
     UserSchedule.EventsCount();
     UserSchedule.Print();
-    UserSchedule.DateCheck();
-    UserSchedule.CancelList();
 }
 catch (Exception e)
 {

@@ -127,7 +127,7 @@ namespace GestoreEventi
             {
                 if (Event.Date == DateCheck)
                 {
-                    found = true;                            //Se invece almeno un evento viene trovato, il messaggio dell'assenza di eventi non verrà scritto
+                    found = true;                               //Se invece almeno un evento viene trovato, il messaggio dell'assenza di eventi non verrà scritto
                     Console.WriteLine("\t" + Event.ToString());
                 }
             }
@@ -161,6 +161,7 @@ namespace GestoreEventi
                 count++;
             }
             Console.WriteLine("Il numero degli eventi è: " + count);
+            Console.WriteLine();
         }
 
         //Metodo che svuota la lista degli eventi

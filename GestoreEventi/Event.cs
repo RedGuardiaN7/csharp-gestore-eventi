@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Authentication;
 using System.Text;
@@ -131,7 +132,7 @@ namespace GestoreEventi
                 {
                     Console.WriteLine();
                     this.BookedSeats += InputBookedSeats;
-                    BookedSeatsSanification|= true;
+                    BookedSeatsSanification = true;
                 }
             } while (BookedSeatsSanification == false);
         }
@@ -199,6 +200,73 @@ namespace GestoreEventi
             Console.WriteLine("Numero di posti prenotati: " + this.BookedSeats);
             Console.WriteLine("Numero di posti disponibili: " + (this.MaxCapacity - this.BookedSeats));
             Console.WriteLine();
+        }
+
+        //Metodo che, su richiesta dell'utente, disdice i posti
+
+        public void AskCancelSeats()
+        {
+            bool UserContinue = true;
+            do
+            {
+                Console.Write("Desidera disdire dei posti (sì/no)? ");
+
+                //Sanificazione input dell'utente
+
+                bool InputSanification = false;
+                string StringInput;
+                do
+                {
+                    StringInput = Console.ReadLine();
+                    StringInput.ToLower();
+                    StringInput.Replace("ì", "i");
+
+                    if (StringInput != "si" && StringInput != "s" && StringInput != "no" && StringInput != "n")
+                    {
+                        Console.Write("Per favore, inserisca (si/no): ");
+                    }
+                    else
+                    {
+                        InputSanification = true;
+                    }
+
+                } while (InputSanification == false);
+
+                if (StringInput == "no" || StringInput == "n")
+                {
+                    Console.WriteLine("I posti non verranno disdetti");
+                    Console.WriteLine();
+                    UserContinue = false;
+                }
+                if (StringInput == "si" || StringInput == "s")
+                {
+                    Console.Write("Quanti posti desidera disdire? ");
+
+                    bool CancelSeatsSanification = false;
+                    int InputCancelSeats;
+
+                    do
+                    {
+                        string? StringCancelSeats = Console.ReadLine();
+
+                        if ((int.TryParse(StringCancelSeats, out InputCancelSeats) == false) || InputCancelSeats > this.BookedSeats || InputCancelSeats < 0)
+                        {
+                            Console.Write("Il numero dei posti che lei desidera disdire è invalido, per favore reinserisca il numero di posti da disdire: ");
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            this.BookedSeats -= InputCancelSeats;
+                            CancelSeatsSanification = true;
+                        }
+                    } while (CancelSeatsSanification == false);
+                }
+
+                Console.WriteLine("Numero di posti prenotati: " + this.BookedSeats);
+                Console.WriteLine("Numero di posti disponibili: " + (this.MaxCapacity - this.BookedSeats));
+                Console.WriteLine();
+
+            } while (UserContinue == true);
         }
 
         //---------- Definizioni delle eccezioni ----------//

@@ -12,9 +12,8 @@ try
 {
     Event Event_1 = new Event();
 
-    Console.WriteLine(Event_1.ToString());
 
-    Event_1.BookSeats(2);
+    Event_1.AskCancelSeats();
 
 
 

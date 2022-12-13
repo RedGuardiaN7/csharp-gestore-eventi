@@ -6,3 +6,28 @@
 // - Poter gestire un intero programma di Eventi (ossia tenere traccia di tutti gli eventi
 //   che afferiscono ad serie di Conferenze)
 
+using GestoreEventi;
+
+try
+{
+    Event Sagra = new Event("Sagra della polpetta", "14/12/2022", 10);
+
+    Console.WriteLine(Sagra.ToString());
+
+    Sagra.BookSeats(2);
+    Sagra.CancelSeats(3);
+
+
+
+
+
+
+
+
+
+
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}

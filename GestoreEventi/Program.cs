@@ -7,16 +7,22 @@
 //   che afferiscono ad serie di Conferenze)
 
 using GestoreEventi;
+using static GestoreEventi.EventSchedule;
 
 try
 {
-    Event Event_1 = new Event();
+    EventSchedule WinterFestival = new EventSchedule ("Winter Festival 2022");
+    Event Event_1 = new Event("SnowFight", "14/12/2022", 200);
+    Event Event_2 = new Event("Vin Brulè Party", "14/12/2022", 200);
+    Event Event_3 = new Event("Secret Santa", "20/12/2022", 200);
 
+    WinterFestival.Add (Event_1);
+    WinterFestival.Add (Event_2);
+    WinterFestival.Add(Event_3);
 
-    Event_1.AskCancelSeats();
+    WinterFestival.DateCheck("14/12/2022");
 
-
-
+    WinterFestival.Print();
 
 
 
